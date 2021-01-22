@@ -1,0 +1,2 @@
+class KanjisController < ApplicationController
+end
