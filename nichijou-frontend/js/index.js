@@ -3,44 +3,102 @@
 
 let tblbody = document.getElementById('calbody'),
   crntDate = new Date(),
-  month = crntDate.getMonth(),
-  year = crntDate.getFullYear();
+  crntMonth = crntDate.getMonth(),
+  crntYear = crntDate.getFullYear();
   sltYr = document.getElementById('year'),
   sltMnth = document.getElementById('month'),
   months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
 
-function next() => {
-  if (month === 11){
-      year++;
-      month = 0;
+function next(){
+  if (crntMonth === 11){
+      crntYear++;
+      crntMonth = 0;
   } else {
-      month++;
+      crntMonth++;
   }
-  calendar(month, year);
+  calendar(crntMonth, crntYear);
 }
 
-function previous() => {
-    if (month === 0){
-        year--;
-        month = 11;
+function previous(){
+    if (crntMonth === 0){
+        crntYear--;
+        crntMonth = 11;
     } else {
-        month--;
+        crntMonth--;
     }
-    calendar(month, year);
+    calendar(crntMonth, crntYear);
 }
 
-function year() => {
-    year = parseInt(sltYr.value);
-    calendar(month, year);
+function year(){
+    crntYear = parseInt(sltYr.value);
+    calendar(crntMonth, crntYear);
 }
 
-function month() => {
-    month = parseInt(sltMnth.value);
-    calendar(month, year);
+function Month(){
+    crntMonth = parseInt(sltMnth.value);
+    calendar(crntMonth, crntYear);
 }
 
-function calendar(month, year){
+function previousDateDays(){
+  if (crntMonth === 0){
+    crntMonth = 12;  
+    return new Date(crntYear, crntMonth, 0).getDate();
+  } else {
+      crntMonth -= 2;
+      return new Date(crntYear, crntMonth, 0).getDate();
+  }
+}
 
+// function futureDateDays(){
+//     let mnth;
+//     if (crntMonth === 11){
+//       crntMoth = 1;
+//       return new Date(crntYear, crntMonth, 0).getDate();
+//     } else {
+//         crntMonth += 2;
+//         return new Date(crntYear, crntMonth, 0).getDate();
+//     }
+// }
+// realized I don't need this keeping in case
+
+function calendar(mth, yr){
+    let calDate = new Date(yr, mnth);
+    let dOW = calDate.getDay();
+    // day of week
+    let dIM = new Date(yr, (mnth + 1), 0).getDate();
+    let prev = previousDateDays();
+    let date = 1;
+    tblbody = '';
+    for(let i = 0; i < 5; i++){
+      let tblRow = document.createElement('tr');
+      for(let ii = 0; ii < 7; ii++){
+          let pM = prev - dOW + 1;
+          if(i === 0 && ii < dOW){
+              let block = document.createElement('td');
+              let blockDate = document.createTextNode(pM);
+              block.appendChild(blockDate);
+              tblRow.appendChild(block);
+              pM++
+          } else if (date > dIM){
+              date = 0;
+              let block = document.createElement('td');
+              let blockDate = document.createTextNode(date);
+              block.appendChild(blockDate);
+              tblRow.appendChild(block);
+              date++
+          } else {
+            let block = document.createElement('td');
+            let blockDate = document.createTextNode(date);
+            if (yr === crntYear && mth === crntMonth && calDate.getDate() === crntDate.getDate()){
+                block.classList.add('today');
+            }
+            block.appendChild(blockDate);
+            tblRow.appendChild(block);
+            date++;
+          }
+      }
+      tblbody.appendChild(tblRow);
+    }
 }
 
 // CALENDAR FUNCTIONS
