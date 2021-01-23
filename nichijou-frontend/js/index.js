@@ -4,7 +4,7 @@
 let tblbody = document.getElementById('calbody'),
   crntDate = new Date(),
   crntMonth = crntDate.getMonth(),
-  crntYear = crntDate.getFullYear();
+  crntYear = crntDate.getFullYear(),
   sltYr = document.getElementById('year'),
   sltMnth = document.getElementById('month'),
   months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
@@ -16,7 +16,7 @@ function next(){
   } else {
       crntMonth++;
   }
-  calendar(crntMonth, crntYear);
+  calendar(crntYear, crntMonth);
 }
 
 function previous(){
@@ -26,12 +26,12 @@ function previous(){
     } else {
         crntMonth--;
     }
-    calendar(crntMonth, crntYear);
+    calendar(crntYear, crntMonth);
 }
 
 function year(){
     crntYear = parseInt(sltYr.value);
-    calendar(crntMonth, crntYear);
+    calendar(crntYear, crntMonth);
 }
 
 function Month(){
@@ -41,46 +41,43 @@ function Month(){
 
 function previousDateDays(){
   if (crntMonth === 0){
-    crntMonth = 12;  
-    return new Date(crntYear, crntMonth, 0).getDate();
+    let m = 12;  
+    //for  whatever reason this was going global and changing crntMonth to 12;
+    return new Date(crntYear, m, 0).getDate();
   } else {
       crntMonth -= 2;
       return new Date(crntYear, crntMonth, 0).getDate();
   }
 }
 
-// function futureDateDays(){
-//     let mnth;
-//     if (crntMonth === 11){
-//       crntMoth = 1;
-//       return new Date(crntYear, crntMonth, 0).getDate();
-//     } else {
-//         crntMonth += 2;
-//         return new Date(crntYear, crntMonth, 0).getDate();
-//     }
-// }
-// realized I don't need this keeping in case
+function calVal(yr, mth){
+    if (mth === undefined || yr === undefined){
+        tblbody.innerHTML = 'Please enter a month and a year';
+        return console.log('error')
+    }
+}
 
-function calendar(mth, yr){
-    let calDate = new Date(yr, mnth);
+function calendar(yr, mth){
+    calVal(yr, mth);
+    let calDate = new Date(yr, mth);
     let dOW = calDate.getDay();
     // day of week
-    let dIM = new Date(yr, (mnth + 1), 0).getDate();
+    let dIM = new Date(yr, (mth + 1), 0).getDate();
     let prev = previousDateDays();
     let date = 1;
-    tblbody = '';
+    let pM = prev - dOW + 1;
+    tblbody.innerHTML = '';
     for(let i = 0; i < 5; i++){
       let tblRow = document.createElement('tr');
-      for(let ii = 0; ii < 7; ii++){
-          let pM = prev - dOW + 1;
-          if(i === 0 && ii < dOW){
+      for(let j = 0; j < 7; j++){
+          if(i === 0 && j < dOW){
               let block = document.createElement('td');
               let blockDate = document.createTextNode(pM);
               block.appendChild(blockDate);
               tblRow.appendChild(block);
-              pM++
+              pM++;
           } else if (date > dIM){
-              date = 0;
+              date = 1;
               let block = document.createElement('td');
               let blockDate = document.createTextNode(date);
               block.appendChild(blockDate);
@@ -89,8 +86,8 @@ function calendar(mth, yr){
           } else {
             let block = document.createElement('td');
             let blockDate = document.createTextNode(date);
-            if (yr === crntYear && mth === crntMonth && calDate.getDate() === crntDate.getDate()){
-                block.classList.add('today');
+            if (yr === crntYear && mth === crntMonth && date === crntDate.getDate()){
+                block.setAttribute('id', 'today');
             }
             block.appendChild(blockDate);
             tblRow.appendChild(block);
@@ -106,7 +103,21 @@ function calendar(mth, yr){
 // DOMLOAD FUNCTION
 
 document.addEventListener('DOMContentLoaded', () =>{
-  
+  calendar(crntYear, crntMonth);
 })
 
 // DOMLOAD FUNCTION
+
+// Possible Useful functions
+
+// function futureDateDays(){
+//     let mnth;
+//     if (crntMonth === 11){
+//       crntMoth = 1;
+//       return new Date(crntYear, crntMonth, 0).getDate();
+//     } else {
+//         crntMonth += 2;
+//         return new Date(crntYear, crntMonth, 0).getDate();
+//     }
+// }
+// realized I don't need this keeping in case
