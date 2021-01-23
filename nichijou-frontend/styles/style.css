@@ -1,0 +1,12 @@
+#calendar {
+    border: solid 2px black;
+    position: absolute;
+    right: 5px;
+    height: 100%;
+}
+
+#caldendar #calhead {
+    text-align: center;
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
