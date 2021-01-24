@@ -10,37 +10,43 @@ let tblbody = document.getElementById('calbody'),
   months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
 
 function next(){
-  if (crntMonth === 11){
-      crntYear++;
-      crntMonth = 0;
+  if (sltMnth.value === '11'){
+      nxtY = parseInt(sltYr.value) + 1;
+      nxtM = 0;
   } else {
-      crntMonth++;
+      nxtM = parseInt(sltMnth.value) + 1;
+      nxtY = parseInt(sltYr.value);
   }
-  calendar(crntYear, crntMonth);
+  console.log(nxtM, nxtY)
+  calendar(nxtY, nxtM);
 }
 
 function previous(){
-    if (crntMonth === 0){
-        crntYear--;
-        crntMonth = 11;
+    if (sltMnth.value === '0'){
+        prvY = parseInt(sltYr.value) - 1;
+        prvM = 11;
     } else {
-        crntMonth--;
+        prvM = parseInt(sltMnth.value) - 1;
+        prvY = parseInt(sltYr.value);
     }
-    calendar(crntYear, crntMonth);
+    console.log(prvY)
+    calendar(prvY, prvM);
 }
 
 function year(){
-    crntYear = parseInt(sltYr.value);
-    calendar(crntYear, crntMonth);
+    let yrC = sltYr.value
+    let mnthC = sltMnth.value;
+    calendar(yrC, mnthC);
 }
 
-function Month(){
-    crntMonth = parseInt(sltMnth.value);
-    calendar(crntMonth, crntYear);
+function month(){
+    let mnthC = sltMnth.value;
+    let yrC = sltYr.value;
+    calendar(yrC, mnthC);
 }
 
 function previousDateDays(){
-  if (crntMonth === 0){
+  if (sltMnth.value === '0'){
     let m = 12;  
     //for  whatever reason this was going global and changing crntMonth to 12;
     return new Date(crntYear, m, 0).getDate();
@@ -73,7 +79,7 @@ function calendar(yr, mth){
     let date = 1;
     let pM = prev - dOW + 1;
     tblbody.innerHTML = '';
-    for(let i = 0; i < 5; i++){
+    for(let i = 0; i < 6; i++){
       let tblRow = document.createElement('tr');
       for(let j = 0; j < 7; j++){
           if(i === 0 && j < dOW){

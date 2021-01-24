@@ -9,7 +9,7 @@
   <div class='calender' id='calendar'>
     <div id='calhead'>
       <span>
-        <button>Previous</button>
+        <button id='prvbtn' onclick='previous()'>Previous</button>
         <select name='month' id='month' onchange='month()'>
           <option value=0>Jan</option>
           <option value=1>Feb</option>
@@ -77,7 +77,7 @@
           <option value=2039>2039</option>
           <option value=2040>2040</option>
         </select>
-        <button>Next</button>
+        <button id='nextbtn' onclick='next()'>Next</button>
       </span>
     </div>
     <table>
