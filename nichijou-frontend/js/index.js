@@ -77,6 +77,7 @@ function calendar(yr, mth){
     let dIM = new Date(yr, (mth + 1), 0).getDate();
     let prev = previousDateDays();
     let date = 1;
+    let naDate = 1;
     let pM = prev - dOW + 1;
     tblbody.innerHTML = '';
     for(let i = 0; i < 6; i++){
@@ -85,20 +86,21 @@ function calendar(yr, mth){
           if(i === 0 && j < dOW){
               let block = document.createElement('td');
               let blockDate = document.createTextNode(pM);
+              block.classList.add('naDate')
               block.appendChild(blockDate);
               tblRow.appendChild(block);
               pM++;
           } else if (date > dIM){
-              date = 1;
               let block = document.createElement('td');
-              let blockDate = document.createTextNode(date);
+              let blockDate = document.createTextNode(naDate);
+              block.classList.add('naDate')
               block.appendChild(blockDate);
               tblRow.appendChild(block);
-              date++
+              naDate++
           } else {
             let block = document.createElement('td');
             let blockDate = document.createTextNode(date);
-            if (yr === crntYear && mth === crntMonth && date === crntDate.getDate()){
+            if (yr === parseInt(sltYr.value) && mth === parseInt(sltMnth.value) && date === crntDate.getDate()){
                 block.setAttribute('id', 'today');
             }
             block.appendChild(blockDate);
@@ -114,8 +116,13 @@ function calendar(yr, mth){
 
 // DOMLOAD FUNCTION
 
+let notesbtn = document.getElementById('notesbtn');
+let homebtn = document.getElementById('homebtn');
+let drawbtn = document.getElementById('drawbtn');
+
 document.addEventListener('DOMContentLoaded', () =>{
   calendar(crntYear, crntMonth);
+
 
 })
 

@@ -1,15 +1,19 @@
 html, body {
     margin: 0;
     padding: 0;
+    height: 100%;
 }
 
 /* CONTAINER CSS */
 
 .cnt-container {
-    border: black solid 2px;
+    border-right:black solid 2px;
+    border-left: black solid 2px; 
+    margin: 0;
     height: auto;
-    left: 60px;
+    margin-left: 51px;
     height: 100%;
+    display: flex;
 }
 
 /* CONTAINER CSS */
@@ -17,14 +21,40 @@ html, body {
 /* CALENDAR CSS */
 #calendar {
     border: solid 2px black;
+    margin: 10px 0 10px 0;
+    padding: 3px;
+    top: 10px;
+    right: 10px;
     position: absolute;
-    right: 5px;
+    display: flexbox;
 }
 
-#caldendar #calhead {
+#calhead {
     text-align: center;
-    padding-top: 2px;
-    padding-bottom: 2px;
+    padding: 2px;
+}
+
+#calendar td {
+    border: 1px black solid;
+}
+
+#calendar td.naDate{
+    background-color:rgb(182, 176, 176);
+}
+
+#calendar td#today{
+    background-color:turquoise;
+}
+
+#calendar table {
+    text-align: center;
+    right: 0;
+    padding-left: 7px;
+    padding-right: 2px;
+}
+
+#calendar table tr {
+
 }
 /* CALENDAR CSS */
 
