@@ -1,8 +1,24 @@
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
+/* CONTAINER CSS */
+
+.cnt-container {
+    border: black solid 2px;
+    height: auto;
+    left: 60px;
+    height: 100%;
+}
+
+/* CONTAINER CSS */
+
+/* CALENDAR CSS */
 #calendar {
     border: solid 2px black;
     position: absolute;
     right: 5px;
-    height: 100%;
 }
 
 #caldendar #calhead {
@@ -10,3 +26,39 @@
     padding-top: 2px;
     padding-bottom: 2px;
 }
+/* CALENDAR CSS */
+
+/* SIDEBAR */
+.sidenav {
+    height: 100%;
+    width: 50px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: lightblue;
+    overflow-x: hidden;
+    padding-top: 120px;
+    border-right: 2px solid skyblue;
+    border-top: 2px solid skyblue;
+    border-bottom: 2px solid skyblue;
+  }
+
+  .sidenav a .navbtn {
+      padding-left: -2px;
+      padding-right: 0;
+  }
+
+  .sidenav a {
+    padding: 27px 10px 27px 14px;
+    text-decoration: none;
+    font-size: 25px;
+    color: black;
+    display: block;
+  }
+
+  .sidenav a:hover {
+    border: black solid 1px;
+  }
+/* SIDEBAR */
+
