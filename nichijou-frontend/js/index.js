@@ -57,7 +57,13 @@ function calVal(yr, mth){
     }
 }
 
+function monthAndDay(yr, mth){
+    sltYr.value = yr;
+    sltMnth.value = mth;
+}
+
 function calendar(yr, mth){
+    monthAndDay(yr, mth);
     calVal(yr, mth);
     let calDate = new Date(yr, mth);
     let dOW = calDate.getDay();
@@ -104,6 +110,7 @@ function calendar(yr, mth){
 
 document.addEventListener('DOMContentLoaded', () =>{
   calendar(crntYear, crntMonth);
+
 })
 
 // DOMLOAD FUNCTION
