@@ -85,21 +85,30 @@ function calendar(yr, mth){
       for(let j = 0; j < 7; j++){
           if(i === 0 && j < dOW){
               let block = document.createElement('td');
-              let blockDate = document.createTextNode(pM);
+              let blockDate = document.createElement('p');
+              blockDate.innerHTML = pM;
+              blockDate.setAttribute('id', `pdate${pM}`)
+              blockDate.classList.add('dateNum');
               block.classList.add('naDate')
               block.appendChild(blockDate);
               tblRow.appendChild(block);
               pM++;
           } else if (date > dIM){
               let block = document.createElement('td');
-              let blockDate = document.createTextNode(naDate);
+              let blockDate = document.createElement('p');
+              blockDate.innerHTML = naDate;
+              blockDate.setAttribute('id', `fdate${naDate}`)
+              blockDate.classList.add('dateNum');
               block.classList.add('naDate')
               block.appendChild(blockDate);
               tblRow.appendChild(block);
               naDate++
           } else {
             let block = document.createElement('td');
-            let blockDate = document.createTextNode(date);
+            let blockDate = document.createElement('p');
+            blockDate.innerHTML = date;
+            blockDate.setAttribute('id', `date${date}`)
+            blockDate.classList.add('dateNum');
             if (yr === parseInt(sltYr.value) && mth === parseInt(sltMnth.value) && date === crntDate.getDate()){
                 block.setAttribute('id', 'today');
             }

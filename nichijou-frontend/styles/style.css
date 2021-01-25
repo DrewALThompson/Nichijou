@@ -22,9 +22,11 @@ html, body {
 #calendar {
     border: solid 2px black;
     margin: 10px 0 10px 0;
-    padding: 3px;
+    padding: 8px;
     top: 10px;
     right: 10px;
+    height: 500px;
+    width: 500px;
     position: absolute;
     display: flexbox;
 }
@@ -36,6 +38,8 @@ html, body {
 
 #calendar td {
     border: 1px black solid;
+    height: 60px;
+    width: 60px;
 }
 
 #calendar td.naDate{
@@ -46,16 +50,21 @@ html, body {
     background-color:turquoise;
 }
 
+.dateNum {
+    position: relative;
+    top: -25px;
+    left: 1px;
+}
+
 #calendar table {
-    text-align: center;
     right: 0;
-    padding-left: 7px;
-    padding-right: 2px;
+    margin: auto;
+    padding-left: 0;
+    padding-right: 0;
+    height: 480px;
+    width: 480px;
 }
 
-#calendar table tr {
-
-}
 /* CALENDAR CSS */
 
 /* SIDEBAR */
