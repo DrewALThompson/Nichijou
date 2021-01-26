@@ -140,6 +140,16 @@ x2.onclick = function(){
     logoutModal.style.display = 'none';
 }
 
+window.onclick = function(e) {
+    if (e.target == loginModal) {
+      loginModal.style.display = "none";
+      userButton.setAttribute('id', 'loginbtn');
+    } else if (e.target == logoutModal){
+      logoutModal.style.display = 'none';
+      userButton.setAttribute('id', 'logoutbtn');
+    }
+  }
+
 function loginForm(){
     loginModal.style.display = 'block';
     userButton.setAttribute('id', 'logoutbtn');
@@ -147,17 +157,18 @@ function loginForm(){
 
 function logoutForm(){
     logoutModal.style.display = 'block';
-    userButton.setAttribute('id', 'userbtn')
+    userButton.setAttribute('id', 'loginbtn')
 }
 
-function userFn(){
+
+userButton.onclick = (e) => {
+    e.preventDefault;
     if (userButton.id === 'loginbtn'){
         loginForm();
     } else if (userButton.id === 'logoutbtn'){
         logoutForm();
     }
 }
-
 
 
 // LOGIN BUTTON
@@ -170,10 +181,7 @@ let drawbtn = document.getElementById('drawbtn');
 
 document.addEventListener('DOMContentLoaded', () =>{
   calendar(crntYear, crntMonth);
-  userButton.preventDefault;
-  userButton.addEventListener('onclick', userFn());
-
-
+  
 })
 
 // DOMLOAD FUNCTION
