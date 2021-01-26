@@ -123,6 +123,45 @@ function calendar(yr, mth){
 
 // CALENDAR FUNCTIONS
 
+// LOGIN BUTTON
+
+let userButton = document.getElementsByClassName('userbtn')[0],
+    loginModal = document.getElementById('login'),
+    logoutModal = document.getElementById('logout'),
+    x1 = document.getElementsByClassName("close")[0],
+    x2 = document.getElementsByClassName("close")[1];
+
+
+x1.onclick = function(){
+    loginModal.style.display = 'none';
+}
+
+x2.onclick = function(){
+    logoutModal.style.display = 'none';
+}
+
+function loginForm(){
+    loginModal.style.display = 'block';
+    userButton.setAttribute('id', 'logoutbtn');
+}
+
+function logoutForm(){
+    logoutModal.style.display = 'block';
+    userButton.setAttribute('id', 'userbtn')
+}
+
+function userFn(){
+    if (userButton.id === 'loginbtn'){
+        loginForm();
+    } else if (userButton.id === 'logoutbtn'){
+        logoutForm();
+    }
+}
+
+
+
+// LOGIN BUTTON
+
 // DOMLOAD FUNCTION
 
 let notesbtn = document.getElementById('notesbtn');
@@ -131,6 +170,8 @@ let drawbtn = document.getElementById('drawbtn');
 
 document.addEventListener('DOMContentLoaded', () =>{
   calendar(crntYear, crntMonth);
+  userButton.preventDefault;
+  userButton.addEventListener('onclick', userFn());
 
 
 })

@@ -7,13 +7,13 @@
 
 <body>
   <div class='sidenav' id='sidenav'>
-    <a href='#' id='homebtn'><img src='images/home.png' class='navbtn' width='25px' height='25px'></a>
+    <a href='#' id='homebtn'><img src='images/home.png' class='navbtn'></a>
     <!-- Home/Calendar Screen Button -->
-    <a href='#' id='notesbtn'><img src='images/writing.png' class='navbtn' width='25px' height='25px'></a>
+    <a href='#' id='notesbtn'><img src='images/writing.png' class='navbtn'></a>
     <!-- Just Notes -->
-    <a href='#' id='drawbtn'><img src='images/pencil.png' class='navbtn' width='25px' height='25px'></a>
+    <a href='#' id='drawbtn'><img src='images/pencil.png' class='navbtn'></a>
     <!-- Draw Screen -->
-    <a href='#'>D</a>
+    <a href='#' id='loginbtn' class='userbtn' onclick='userFn()'><img src='images/userimg.png' class='navbtn'></a>
     <!-- Login -->
   </div>
   <div class='cnt-container' id='cnt-container'>
@@ -107,6 +107,18 @@
 
       </tbody>
       </table>
+      <div id='login' class='modal'>
+          <div class='modal-content'>
+            <span class='close'>&times;</span>
+            <p>Test</p>
+          </div>
+      </div>
+      <div id='logout' class='modal'>
+          <div class='modal-content'>
+            <span class='close' onclick='closer'>&times;</span>
+            <p>Insert Text</p>
+          </div>
+      </div>
     </div>
   </div>
     <script type='text/javascript' src='js/index.js'></script>
@@ -114,5 +126,6 @@
 
 </html>
 <!-- <div>Icons made by <a href="https://www.flaticon.com/authors/dave-gandy" title="Dave Gandy">Dave Gandy</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div> NEEDS TO BE SOMEWHERE -->
+<!-- <div>Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div> -->
 <!-- <div>Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div> -->
 <!-- <div>Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div> -->
