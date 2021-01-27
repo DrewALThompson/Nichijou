@@ -110,13 +110,34 @@
       <div id='login' class='modal'>
           <div class='modal-content'>
             <span class='close'>&times;</span>
-            <p>Here goes Login Form For Session</p>
+            <h2>Login!</h2>
+            <form action='http://localhost:3000/sessions/new' method='post'>
+              <label for='username'>Username</label><br>
+              <input type='text' name='username' id='username'><br>
+              <label for='password'>Password</label><br>
+              <input type='password' name='password' id='password'><br>
+              <input type='submit' id='loginSubmit'>
+            </form>
+            <h2>Signup!</h2>
+            <form action='http://localhost:3000/users/new' method='post'>
+              <label for='username'>Username</label><br>
+              <input type='text' name='username' id='username'><br>
+              <label for='password'>Password</label><br>
+              <input type='password' name='password' id='password'><br>
+              <label for='passwordConfirmation'>Password Confirmation</label><br>
+              <input type='password' name='passwordConfirmation' id='passwordConfirmation'><br>
+              <input type='submit' id='signupSubmit'>
+            </form>
           </div>
       </div>
       <div id='logout' class='modal'>
           <div class='modal-content'>
             <span class='close' onclick='closer'>&times;</span>
-            <p>Here goes Logout form for session</p>
+            <h3>Do you want to logout?</h3>
+            <form action='http://localhost:3000/sessions/delete' method='post'>
+              <input type='submit' id='logoutYes' value='Yes'>
+              <input type='submit' id='logoutNo' value='No'>
+            </form>
           </div>
       </div>
     </div>
