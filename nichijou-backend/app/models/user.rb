@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-    has_many :notes, :kanji
+    has_many :notes
     has_secure_password
     validates :username, presence: true,
         length: { minimum: 2, maximum: 254},

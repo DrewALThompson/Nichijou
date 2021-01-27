@@ -10,16 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_22_063227) do
+ActiveRecord::Schema.define(version: 2021_01_22_073408) do
 
-  create_table "kanjis", force: :cascade do |t|
-    t.string "name"
-    t.string "meaning"
-    t.binary "image"
-    t.integer "user_id"
+  create_table "events", force: :cascade do |t|
+    t.string "title"
+    t.datetime "datetime_of"
+    t.text "notes"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["user_id"], name: "index_kanjis_on_user_id"
   end
 
   create_table "notes", force: :cascade do |t|
