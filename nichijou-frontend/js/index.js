@@ -181,6 +181,10 @@ let drawbtn = document.getElementById('drawbtn');
 
 document.addEventListener('DOMContentLoaded', () =>{
   calendar(crntYear, crntMonth);
+
+  fetch('http://localhost:3000/events')
+  .then(res => res.json())
+  .then(json => console.log(json))
   
 })
 
