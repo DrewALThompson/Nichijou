@@ -23,9 +23,9 @@ html, body {
     border: solid 2px black;
     margin: 10px 0 10px 0;
     padding: 8px;
-    top: 40px;
+    top: 10px;
     right: 10px;
-    height: 500px;
+    height: 550px;
     width: 500px;
     position: absolute;
     display: flexbox;
@@ -74,9 +74,9 @@ html, body {
   border: solid 2px black;
   margin: 10px 0 10px 0;
   padding: 8px;
-  top: 40px;
+  top: 10px;
   left: 80px;
-  height: 500px;
+  height: 550px;
   width: 640px;
   position: absolute;
   display: flexbox;
@@ -112,6 +112,22 @@ html, body {
   top: 5px;
   left: 0;
   text-align: center;
+}
+
+#ehead{
+  padding: 2px;
+  font-size: 18px;
+  text-align: center;
+}
+
+#ehead b {
+  position: relative;
+  right: -42px;
+}
+
+#ehead #ebtn {
+  position: relative;
+  right: -201px;
 }
 
 /* Events */
