@@ -17,6 +17,9 @@
     <!-- Login -->
   </div>
   <div class='cnt-container' id='cnt-container'>
+    <div class='events' id='eventsholder'>
+      
+    </div>
     <div class='calender' id='calendar'>
       <div id='calhead'>
         <span>
@@ -113,17 +116,17 @@
             <h2>Login!</h2>
             <form action='http://localhost:3000/sessions/new' method='post'>
               <label for='username'>Username</label><br>
-              <input type='text' name='username' id='username'><br>
+              <input type='text' name='username' id='loginUsername'><br>
               <label for='password'>Password</label><br>
-              <input type='password' name='password' id='password'><br>
+              <input type='password' name='password' id='loginPassword'><br>
               <input type='submit' id='loginSubmit'>
             </form>
             <h2>Signup!</h2>
             <form action='http://localhost:3000/users/new' method='post'>
               <label for='username'>Username</label><br>
-              <input type='text' name='username' id='username'><br>
+              <input type='text' name='username' id='signupUsername'><br>
               <label for='password'>Password</label><br>
-              <input type='password' name='password' id='password'><br>
+              <input type='password' name='password' id='signupPassword'><br>
               <label for='passwordConfirmation'>Password Confirmation</label><br>
               <input type='password' name='passwordConfirmation' id='passwordConfirmation'><br>
               <input type='submit' id='signupSubmit'>

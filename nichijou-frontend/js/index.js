@@ -178,13 +178,28 @@ userButton.onclick = (e) => {
 let notesbtn = document.getElementById('notesbtn');
 let homebtn = document.getElementById('homebtn');
 let drawbtn = document.getElementById('drawbtn');
+let eventHolder = document.getElementById('eventsholder');
 
 document.addEventListener('DOMContentLoaded', () =>{
   calendar(crntYear, crntMonth);
 
   fetch('http://localhost:3000/events')
   .then(res => res.json())
-  .then(json => console.log(json))
+  .then(json => {
+      json.forEach((jsonE) =>{
+          let eventCont = document.createElement('div');
+          let eventHeader = document.createElement('h4');
+          let timeCreated = document.createElement('p');
+          let eventNotes = document.createElement('p');
+          eventHeader.innerHTML = `${jsonE.title}`;
+          timeCreated.innerHTML = `${jsonE.datetime_of}`
+          eventNotes.innerHTML = `${jsonE.notes}`
+          eventCont.appendChild(eventHeader);
+          eventCont.appendChild(timeCreated);
+          eventCont.appendChild(eventNotes);
+          eventHolder.appendChild(eventCont);
+      })
+  })
   
 })
 

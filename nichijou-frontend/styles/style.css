@@ -68,6 +68,31 @@ html, body {
 
 /* CALENDAR CSS */
 
+/* Events */
+
+.events {
+  border: solid 2px black;
+  margin: 10px 0 10px 0;
+  padding: 8px;
+  top: 40px;
+  left: 80px;
+  height: 500px;
+  width: 640px;
+  position: absolute;
+  display: flexbox;
+  overflow: auto;
+  z-index: 2;
+}
+
+.events .event {
+  height: 100px;
+  width: 600px;
+  display: block;
+  border: solid 2px black;
+}
+
+/* Events */
+
 /* SIDEBAR */
 .sidenav {
     height: 100%;
