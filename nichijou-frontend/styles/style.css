@@ -86,9 +86,32 @@ html, body {
 
 .events .event {
   height: 100px;
-  width: 600px;
+  width: 625px;
   display: block;
   border: solid 2px black;
+  margin: 4px;
+}
+
+.event .eHead {
+  position: relative;
+  top: 0px;
+  left: 2px;
+  text-align: center;
+}
+
+.event .timeC {
+  position: relative;
+  top: 40px;
+  width: 140px;
+  left: 470px;
+  text-align: center;
+}
+
+.event .eNotes {
+  position: relative;
+  top: 5px;
+  left: 0;
+  text-align: center;
 }
 
 /* Events */

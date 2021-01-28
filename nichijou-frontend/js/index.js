@@ -180,6 +180,39 @@ let homebtn = document.getElementById('homebtn');
 let drawbtn = document.getElementById('drawbtn');
 let eventHolder = document.getElementById('eventsholder');
 
+function buildEvent(jsonE){
+    let timeSpread = datetimeSpreader(jsonE);
+    let eventCont = document.createElement('div');
+    let eventHeader = document.createElement('div');
+    let timeCreated = document.createElement('div');
+    let eventNotes = document.createElement('div');
+    eventHeader.classList.add('eHead');
+    timeCreated.classList.add('timeC');
+    eventNotes.classList.add('eNotes');
+    eventHeader.innerHTML = `-${jsonE.title}-`;
+    timeCreated.innerHTML = timeSpread;
+    eventNotes.innerHTML = `${jsonE.notes}`;
+    eventCont.appendChild(eventHeader);
+    eventCont.appendChild(eventNotes);
+    eventCont.appendChild(timeCreated);
+    eventCont.classList.add('event');
+    eventHolder.appendChild(eventCont);
+}
+
+function datetimeSpreader(jsonE){
+    let time = jsonE.datetime_of;
+    toString(time);
+    let split = time.split('T');
+    let dMY = split[0].split('-');
+    let hM = split[1].split('.')[0].split(':');
+    let timeString;
+    if (hM[0] == '00' && hM[1] == '00'){
+        return `${dMY[1]}/${dMY[2]}/${dMY[0]}`
+    } else {
+        return `${dMY[1]}/${dMY[2]}/${dMY[0]} at ${hM[0]}:${hM[1]}`
+    }
+}
+
 document.addEventListener('DOMContentLoaded', () =>{
   calendar(crntYear, crntMonth);
 
@@ -187,17 +220,7 @@ document.addEventListener('DOMContentLoaded', () =>{
   .then(res => res.json())
   .then(json => {
       json.forEach((jsonE) =>{
-          let eventCont = document.createElement('div');
-          let eventHeader = document.createElement('h4');
-          let timeCreated = document.createElement('p');
-          let eventNotes = document.createElement('p');
-          eventHeader.innerHTML = `${jsonE.title}`;
-          timeCreated.innerHTML = `${jsonE.datetime_of}`
-          eventNotes.innerHTML = `${jsonE.notes}`
-          eventCont.appendChild(eventHeader);
-          eventCont.appendChild(timeCreated);
-          eventCont.appendChild(eventNotes);
-          eventHolder.appendChild(eventCont);
+          buildEvent(jsonE);
       })
   })
   
