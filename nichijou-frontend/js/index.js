@@ -6,8 +6,7 @@ let tblbody = document.getElementById('calbody'),
   crntMonth = crntDate.getMonth(),
   crntYear = crntDate.getFullYear(),
   sltYr = document.getElementById('year'),
-  sltMnth = document.getElementById('month'),
-  months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
+  sltMnth = document.getElementById('month');
 
 function next(){
   if (sltMnth.value === '11'){
@@ -109,7 +108,7 @@ function calendar(yr, mth){
             blockDate.innerHTML = date;
             blockDate.setAttribute('id', `date${date}`)
             blockDate.classList.add('dateNum');
-            if (yr === parseInt(sltYr.value) && mth === parseInt(sltMnth.value) && date === crntDate.getDate()){
+            if (crntYear == parseInt(sltYr.value) && crntMonth == parseInt(sltMnth.value) && date == crntDate.getDate()){
                 block.setAttribute('id', 'today');
             }
             block.appendChild(blockDate);

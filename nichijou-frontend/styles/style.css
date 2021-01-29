@@ -14,6 +14,10 @@ html, body {
     margin-left: 51px;
     height: 100%;
     display: flex;
+    background-color: #F6F2EF;
+    /* background-color: #56AAE1; */
+
+    z-index: -1;
 }
 
 /* CONTAINER CSS */
@@ -31,6 +35,14 @@ html, body {
     display: flexbox;
     z-index: 2;
     border-radius: 10px;
+    /* background-color: white; */
+    /* background-color: #56AAE1; */
+    /* background-color: #1f5581; */
+    /* background-color: #0d7564; */
+    /* background-color: #af2e07; */
+    background: rgb(0,212,255);
+    background: linear-gradient(234deg, rgba(0,212,255,1) 21%, rgba(80,204,212,1) 46%, rgba(0,133,255,1) 72%);
+    
 }
 
 #calhead {
@@ -42,15 +54,17 @@ html, body {
     border: 1px black solid;
     height: 60px;
     width: 60px;
-    border-radius: 2px;
+    border-radius: 4px;
+    background-color: #F6F2EF;
 }
 
 #calendar td.naDate{
-    background-color:rgb(182, 176, 176);
+    background-color:rgb(214, 205, 205);
 }
 
 #calendar td#today{
-    background-color:turquoise;
+    background-color: #5ff2f2;
+    /* background-color: rgb(33, 240, 160); */
 }
 
 .dateNum {
@@ -66,6 +80,18 @@ html, body {
     padding-right: 0;
     height: 480px;
     width: 480px;
+}
+
+#calendar select {
+  height: 40px;
+  width: 130px;
+  font-size: 20px;
+}
+
+#calendar button {
+  height: 40px;
+  width: 102px;
+  font-size: 20px;
 }
 
 /* CALENDAR CSS */
@@ -85,6 +111,13 @@ html, body {
   overflow: auto;
   z-index: 2;
   border-radius: 10px;
+  /* background-color: white; */
+  /* background-color: #56AAE1; */
+  /* background-color: #1f5581; */
+  /* background-color: #0d7564; */
+  /* background-color: #af2e07; */
+  background: rgb(0,212,255);
+  background: linear-gradient(234deg, rgba(0,212,255,1) 21%, rgba(80,204,212,1) 46%, rgba(0,133,255,1) 72%);
 }
 
 .events .event {
@@ -93,7 +126,8 @@ html, body {
   display: block;
   border: solid 2px black;
   margin: 4px;
-  border-radius: 2px;
+  border-radius: 4px;
+  background-color: #F6F2EF;
 }
 
 .event .eHead {
@@ -144,7 +178,9 @@ html, body {
     z-index: 1;
     top: 0;
     left: 0;
-    background-color: lightblue;
+    /* background-color: #add8e6; */
+    background: rgb(173,216,230);
+    background: linear-gradient(187deg, rgba(173,216,230,1) 32%, rgba(214,238,246,1) 61%);
     overflow-x: hidden;
     padding-top: 120px;
     border-right: 2px solid skyblue;
@@ -198,7 +234,7 @@ html, body {
 }
 
 .modal-content {
-  background-color: lightblue;
+  background-color: #add8e6;
   margin: 10% auto;
   padding: 20px;
   border: 2px solid #888;
