@@ -128,7 +128,11 @@ let userButton = document.getElementsByClassName('userbtn')[0],
     loginModal = document.getElementById('login'),
     logoutModal = document.getElementById('logout'),
     x1 = document.getElementsByClassName("close")[0],
-    x2 = document.getElementsByClassName("close")[1];
+    x2 = document.getElementsByClassName("close")[1],
+    loginSub = document.getElementById('loginSubmit'),
+    signupSub = document.getElementById('signupSubmit'),
+    logoutSubY = document.getElementById('logoutYes'),
+    logoutSubN = document.getElementById('logoutNo');
 
 
 x1.onclick = function(){
@@ -170,6 +174,8 @@ userButton.onclick = (e) => {
 }
 
 
+
+
 // LOGIN BUTTON
 
 // DOMLOAD FUNCTION
@@ -178,24 +184,66 @@ let notesbtn = document.getElementById('notesbtn');
 let homebtn = document.getElementById('homebtn');
 let drawbtn = document.getElementById('drawbtn');
 let eventHolder = document.getElementById('eventsholder');
+let tmpr;
 
 function buildEvent(jsonE){
-    let timeSpread = datetimeSpreader(jsonE);
-    let eventCont = document.createElement('div');
-    let eventHeader = document.createElement('div');
-    let timeCreated = document.createElement('div');
-    let eventNotes = document.createElement('div');
+    let timeSpread = datetimeSpreader(jsonE),
+    dTM = timeSpread[1],
+    eventCont = document.createElement('div'),
+    eventHeader = document.createElement('div'),
+    timeCreated = document.createElement('div'),
+    eventNotes = document.createElement('div'),
+    deleteBtn = document.createElement('div');
+    deleteBtn.classList.add('deleteBtn');
     eventHeader.classList.add('eHead');
     timeCreated.classList.add('timeC');
     eventNotes.classList.add('eNotes');
+    deleteBtn.innerHTML = '&times;';
     eventHeader.innerHTML = `-${jsonE.title}-`;
-    timeCreated.innerHTML = timeSpread;
+    timeCreated.innerHTML = timeSpread[0];
     eventNotes.innerHTML = `${jsonE.notes}`;
+    if (dTM[0] == sltYr.value && dTM[1] == sltMnth.value + 1){
+        insertEvent(dTM, jsonE);  
+    }
     eventCont.appendChild(eventHeader);
     eventCont.appendChild(eventNotes);
     eventCont.appendChild(timeCreated);
+    eventCont.appendChild(deleteBtn);
     eventCont.classList.add('event');
     eventHolder.appendChild(eventCont);
+}
+
+function insertEvent(dTM, jsonE){
+    tmpr = dTM[2];
+    let dateNode = document.getElementById(`date${tmpr}`);
+    let dNP = dateNode.parentElement;
+    let eventModal = document.getElementById(`modal${tmpr}`)
+    if (dNP.contains(eventModal)){
+        let calEdate = document.createElement('div');
+        calEdate.innerHTML = `${jsonE.title}`;
+        calEdate.classList.add('calDateEvent');
+        eventModal.children[0].appendChild(calEdate);
+    } else {
+        let eModal = document.createElement('div'),
+            eModalContent = document.createElement('div'),
+            eModalClose = document.createElement('div'),
+            eModalViewer = document.createElement('div'),
+            calEdate = document.createElement('div');
+        eModal.classList.add('eModal');
+        eModalContent.classList.add('eModal-content');
+        eModalClose.classList.add('eViewClose');
+        eModalViewer.classList.add('eBtn');
+        calEdate.classList.add('calDateEvent');
+        eModal.setAttribute('id', `modal${tmpr}`);
+        eModalClose.innerHTML = '&times;';
+        eModalViewer.innerHTML = '&#x2b;';
+        calEdate.innerHTML = `${jsonE.title}`;
+        eModalContent.appendChild(calEdate);
+        eModalContent.appendChild(eModalClose);
+        eModal.appendChild(eModalContent);
+        dNP.appendChild(eModalViewer)
+        dNP.appendChild(eModal);
+    }
 }
 
 function datetimeSpreader(jsonE){
@@ -204,11 +252,10 @@ function datetimeSpreader(jsonE){
     let split = time.split('T');
     let dMY = split[0].split('-');
     let hM = split[1].split('.')[0].split(':');
-    let timeString;
     if (hM[0] == '00' && hM[1] == '00'){
-        return `${dMY[1]}/${dMY[2]}/${dMY[0]}`
+        return [`${dMY[1]}/${dMY[2]}/${dMY[0]}`, dMY, hM]
     } else {
-        return `${dMY[1]}/${dMY[2]}/${dMY[0]} at ${hM[0]}:${hM[1]}`
+        return [`${dMY[1]}/${dMY[2]}/${dMY[0]} at ${hM[0]}:${hM[1]}`, dMY, hM]
     }
 }
 
