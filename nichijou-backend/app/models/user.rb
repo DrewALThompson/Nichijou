@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-    has_many :notes
+    has_many :events
     has_secure_password
     validates :username, presence: true,
         length: { minimum: 2, maximum: 254},
