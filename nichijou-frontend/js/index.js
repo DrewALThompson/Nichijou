@@ -189,6 +189,7 @@ let notesbtn = document.getElementById('notesbtn');
 let homebtn = document.getElementById('homebtn');
 let drawbtn = document.getElementById('drawbtn');
 let eventHolder = document.getElementById('eventsholder');
+let eButton = document.getElementById('ebtn');
 let tmpr;
 
 function buildEvent(jsonE){
@@ -257,8 +258,8 @@ function insertEvent(dTM, jsonE){
             eModal.style.display = 'none';
         }
         calEdate.innerHTML = `${jsonE.title}`;
-        eModalContent.appendChild(calEdate);
         eModalContent.appendChild(eModalClose);
+        eModalContent.appendChild(calEdate);
         eModal.appendChild(eModalContent);
         dNP.appendChild(eModalViewer)
         dNP.appendChild(eModal);    

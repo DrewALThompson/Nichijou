@@ -292,13 +292,6 @@ border: 2px solid #888;
 width: 50%; 
 }
 
-.eViewClose{
-  color: #aaa;
-  position: relative;
-  font-size: 20px;
-  font-weight: bold;
-}
-
 .eBtn {
   margin: -10px;
   padding: -10px;
@@ -307,6 +300,14 @@ width: 50%;
   top: -49px;
   width: 10px;
   color: #aaa;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.eViewClose{
+  color: #aaa;
+  float: right;
+  width: 12px;
   font-size: 20px;
   font-weight: bold;
 }
@@ -322,9 +323,6 @@ width: 50%;
   cursor: pointer;
 }
 
-.eViewClose {
-
-}
 
 /* Modal */
 
