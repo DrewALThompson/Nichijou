@@ -258,7 +258,7 @@ cursor: pointer;
     background-color: rgba(0,0,0,0.4);
 }
 
-.Modal-content {
+.modal-content {
   background-color: #add8e6;
   margin: 10% auto;
   padding: 20px;
@@ -271,13 +271,6 @@ cursor: pointer;
     float: right;
     font-size: 20px;
     font-weight: bold; 
-}
-
-.close:hover,
-.close:focus {
-  color: black;
-  text-decoration: none;
-  cursor: pointer;
 }
 
 .eModal {
@@ -313,7 +306,26 @@ width: 50%;
   right: -55px;
   top: -49px;
   width: 10px;
+  color: #aaa;
+  font-size: 20px;
+  font-weight: bold;
 }
+
+.eBtn:hover,
+.eBtn:focus,
+.eViewClose:hover,
+.eViewClose:focus,
+.close:hover,
+.close:focus  {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.eViewClose {
+
+}
+
 /* Modal */
 
 /* Event Scrollbar */

@@ -16,7 +16,6 @@ function next(){
       nxtM = parseInt(sltMnth.value) + 1;
       nxtY = parseInt(sltYr.value);
   }
-  console.log(nxtM, nxtY)
   calendar(nxtY, nxtM);
 }
 
@@ -28,7 +27,6 @@ function previous(){
         prvM = parseInt(sltMnth.value) - 1;
         prvY = parseInt(sltYr.value);
     }
-    console.log(prvY)
     calendar(prvY, prvM);
 }
 
@@ -118,6 +116,13 @@ function calendar(yr, mth){
       }
       tblbody.appendChild(tblRow);
     }
+    fetch('http://localhost:3000/events')
+    .then(res => res.json())
+    .then(json => {
+      json.forEach((jsonE) =>{
+          buildEvent(jsonE);
+      })
+    })
 }
 
 // CALENDAR FUNCTIONS
@@ -199,6 +204,9 @@ function buildEvent(jsonE){
     timeCreated.classList.add('timeC');
     eventNotes.classList.add('eNotes');
     deleteBtn.innerHTML = '&times;';
+    deleteBtn.onclick = (e) => {
+        console.log('deletebtn click works')
+    }
     eventHeader.innerHTML = `-${jsonE.title}-`;
     timeCreated.innerHTML = timeSpread[0];
     eventNotes.innerHTML = `${jsonE.notes}`;
@@ -237,12 +245,23 @@ function insertEvent(dTM, jsonE){
         eModal.setAttribute('id', `modal${tmpr}`);
         eModalClose.innerHTML = '&times;';
         eModalViewer.innerHTML = '&#x2b;';
+        eModalViewer.onclick = (e) => {
+            let parTd = e.target.parentElement;
+            console.log(parTd);
+            parTd.children[2].style.display = 'block';
+        }
+        eModal.onclick = (e) => {
+            eModal.style.display = 'none';
+        }
+        eModalClose.onclick = (e) => {
+            eModal.style.display = 'none';
+        }
         calEdate.innerHTML = `${jsonE.title}`;
         eModalContent.appendChild(calEdate);
         eModalContent.appendChild(eModalClose);
         eModal.appendChild(eModalContent);
         dNP.appendChild(eModalViewer)
-        dNP.appendChild(eModal);
+        dNP.appendChild(eModal);    
     }
 }
 
@@ -261,14 +280,6 @@ function datetimeSpreader(jsonE){
 
 document.addEventListener('DOMContentLoaded', () =>{
   calendar(crntYear, crntMonth);
-
-  fetch('http://localhost:3000/events')
-  .then(res => res.json())
-  .then(json => {
-      json.forEach((jsonE) =>{
-          buildEvent(jsonE);
-      })
-  })
   
 })
 
