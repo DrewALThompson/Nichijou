@@ -3,4 +3,5 @@ class EventsController < ApplicationController
         events = Event.all
         render json: events
     end
+
 end

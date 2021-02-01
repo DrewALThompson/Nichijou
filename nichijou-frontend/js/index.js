@@ -183,13 +183,55 @@ function logoutForm(){
 
 
 userButton.onclick = (e) => {
-    e.preventDefault;
+    e.preventDefault();
     if (userButton.id === 'loginbtn'){
         loginForm();
     } else if (userButton.id === 'logoutbtn'){
         logoutForm();
     }
 }
+
+loginSub.onclick = (e) => {
+    e.preventDefault();
+}
+
+signupSub.onclick = (e) => {
+    e.preventDefault();
+    let signupForm = {},
+        sUsername = document.getElementById('signupUsername').value,
+        sPassword = document.getElementById('signupPassword').value,
+        sPasswordConfirmation = document.getElementById('passwordConfirmation').value;
+    let user = new UserSignupData(sUsername, sPassword, sPasswordConfirmation);
+    console.log(user);
+    fetch('http://localhost:3000/users', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(user)
+    })
+    .then(res => res.json())
+    .then(data => console.log('Cool Beans fam', data))
+    .catch((error) => {
+        console.error(error);
+    })
+}
+
+class UserSignupData {
+    constructor(username, password, password_confirmation){
+        this.username = username;
+        this.password = password;
+        this.password_confirmation = password_confirmation;
+    }
+}
+
+class UserLoginData {
+    constructor(username, password){
+        this.username = username;
+        this.password = password;
+    }
+}
+
 
 
 
@@ -301,6 +343,12 @@ function datetimeSpreader(jsonE){
         return [`${dMY[1]}/${dMY[2]}/${dMY[0]} at ${hM[0]}:${hM[1]}`, dMY, hM]
     }
 }
+
+// class EventData{
+//     constructor(){
+        
+//     }
+// }
 
 
 document.addEventListener('DOMContentLoaded', () =>{
