@@ -137,7 +137,14 @@ let userButton = document.getElementsByClassName('userbtn')[0],
     loginSub = document.getElementById('loginSubmit'),
     signupSub = document.getElementById('signupSubmit'),
     logoutSubY = document.getElementById('logoutYes'),
-    logoutSubN = document.getElementById('logoutNo');
+    logoutSubN = document.getElementById('logoutNo'),
+    eButton = document.getElementById('ebtn'),
+    addEModal = document.getElementById('addEModal'),
+    addEClose = document.getElementById('aEC')
+
+eButton.onclick = () => {
+    addEModal.style.display = 'block';
+}
 
 
 x1.onclick = function(){
@@ -148,6 +155,10 @@ x2.onclick = function(){
     logoutModal.style.display = 'none';
 }
 
+addEClose.onclick = function(){
+    addEModal.style.display = 'none';
+}
+
 window.onclick = function(e) {
     if (e.target == loginModal) {
       loginModal.style.display = "none";
@@ -155,6 +166,8 @@ window.onclick = function(e) {
     } else if (e.target == logoutModal){
       logoutModal.style.display = 'none';
       userButton.setAttribute('id', 'logoutbtn');
+    } else if (e.target == addEModal){
+        addEModal.style.display = 'none';
     }
   }
 
@@ -189,17 +202,25 @@ let notesbtn = document.getElementById('notesbtn');
 let homebtn = document.getElementById('homebtn');
 let drawbtn = document.getElementById('drawbtn');
 let eventHolder = document.getElementById('eventsholder');
-let eButton = document.getElementById('ebtn');
 let tmpr;
 
 function buildEvent(jsonE){
     let timeSpread = datetimeSpreader(jsonE),
     dTM = timeSpread[1],
     eventCont = document.createElement('div'),
+    eventEventCont = document.createElement('div'),
     eventHeader = document.createElement('div'),
     timeCreated = document.createElement('div'),
     eventNotes = document.createElement('div'),
+    eWipe = document.getElementById('eventsholder'),
+    eWipee = document.getElementById('wipe'),
     deleteBtn = document.createElement('div');
+    eventEventCont.setAttribute('id', 'wipe');
+    if (eWipe.contains(eWipee)){
+        while (eWipee.hasChildNodes()) {
+            eWipee.removeChild(eWipee.firstChild);
+          }
+    }
     deleteBtn.classList.add('deleteBtn');
     eventHeader.classList.add('eHead');
     timeCreated.classList.add('timeC');
@@ -211,7 +232,7 @@ function buildEvent(jsonE){
     eventHeader.innerHTML = `-${jsonE.title}-`;
     timeCreated.innerHTML = timeSpread[0];
     eventNotes.innerHTML = `${jsonE.notes}`;
-    if (dTM[0] == sltYr.value && dTM[1] == sltMnth.value + 1){
+    if (parseInt(dTM[0]) === parseInt(sltYr.value) && parseInt(dTM[1]) === parseInt(sltMnth.value) + 1){
         insertEvent(dTM, jsonE);  
     }
     eventCont.appendChild(eventHeader);
@@ -219,11 +240,13 @@ function buildEvent(jsonE){
     eventCont.appendChild(timeCreated);
     eventCont.appendChild(deleteBtn);
     eventCont.classList.add('event');
-    eventHolder.appendChild(eventCont);
+    eventEventCont.appendChild(eventCont);
+    eventHolder.appendChild(eventEventCont);
 }
 
 function insertEvent(dTM, jsonE){
-    tmpr = dTM[2];
+    tmpr = parseInt(dTM[2]);
+    console.log(tmpr, `date${tmpr}`);
     let dateNode = document.getElementById(`date${tmpr}`);
     let dNP = dateNode.parentElement;
     let eventModal = document.getElementById(`modal${tmpr}`)
@@ -278,6 +301,7 @@ function datetimeSpreader(jsonE){
         return [`${dMY[1]}/${dMY[2]}/${dMY[0]} at ${hM[0]}:${hM[1]}`, dMY, hM]
     }
 }
+
 
 document.addEventListener('DOMContentLoaded', () =>{
   calendar(crntYear, crntMonth);
