@@ -202,7 +202,6 @@ signupSub.onclick = (e) => {
         sPassword = document.getElementById('signupPassword').value,
         sPasswordConfirmation = document.getElementById('passwordConfirmation').value;
     let user = new UserSignupData(sUsername, sPassword, sPasswordConfirmation);
-    console.log(user);
     fetch('http://localhost:3000/users', {
         method: 'POST',
         headers: {
@@ -288,7 +287,6 @@ function buildEvent(jsonE){
 
 function insertEvent(dTM, jsonE){
     tmpr = parseInt(dTM[2]);
-    console.log(tmpr, `date${tmpr}`);
     let dateNode = document.getElementById(`date${tmpr}`);
     let dNP = dateNode.parentElement;
     let eventModal = document.getElementById(`modal${tmpr}`)
@@ -313,7 +311,6 @@ function insertEvent(dTM, jsonE){
         eModalViewer.innerHTML = '&#x2b;';
         eModalViewer.onclick = (e) => {
             let parTd = e.target.parentElement;
-            console.log(parTd);
             parTd.children[2].style.display = 'block';
         }
         eModal.onclick = (e) => {
