@@ -19,6 +19,7 @@
   <div class='cnt-container' id='cnt-container'>
     <div class='events' id='eventsholder'>
       <div id='ehead'><b>Upcoming Events</b> <button id='ebtn'>Add Events</button></div>
+      <div id ='wipe'></div>
     </div>
     <div class='calender' id='calendar'>
       <div id='calhead'>
@@ -110,53 +111,53 @@
 
       </tbody>
       </table>
-      <div id='login' class='modal'>
-          <div class='modal-content'>
-            <span class='close'>&times;</span>
-            <h2>Login!</h2>
-            <form action='http://localhost:3000/sessions/new' method='post'>
-              <label for='username'>Username</label><br>
-              <input type='text' name='username' id='loginUsername'><br>
-              <label for='password'>Password</label><br>
-              <input type='password' name='password' id='loginPassword'><br>
-              <input type='button' id='loginSubmit' value='Login'>
-            </form>
-            <h2>Signup!</h2>
-            <form>
-              <label for='username'>Username</label><br>
-              <input type='text' name='username' id='signupUsername'><br>
-              <label for='password'>Password</label><br>
-              <input type='password' name='password' id='signupPassword'><br>
-              <label for='passwordConfirmation'>Password Confirmation</label><br>
-              <input type='password' name='passwordConfirmation' id='passwordConfirmation'><br>
-              <input type='button' id='signupSubmit' value='Signup'>
-            </form>
-          </div>
-      </div>
-      <div id='addEModal' class='modal'>
-        <div class='modal-content'>
-          <span class='close' id='aEC'>&times;</span>
-          <form action='http://localhost:3000/events/new' method='post'>
-            <label for='title'>Event Title</label><br>
-            <input type='text' name='title' id='event[title]'><br>
-            <label for='notes'>Event Notes</label><br>
-            <input type='text' name='notes' id='event[notes]'><br>
-            <label for='datetime_of'>Date and time of</label><br>
-            <input type='datetime-local' name='datetime_of' id='event[datetime_of]'><br>
-            <input type='submit' id='addEventSub' value='Add Event'>
-          </form>
-        </div>
-      </div>
-      <div id='logout' class='modal'>
-          <div class='modal-content'>
-            <span class='close' onclick='closer'>&times;</span>
-            <h3>Do you want to logout?</h3>
-            <form action='http://localhost:3000/sessions/delete' method='post'>
-              <input type='submit' id='logoutYes' value='Yes'>
-              <input type='submit' id='logoutNo' value='No'>
-            </form>
-          </div>
-      </div>
+    </div>
+  </div>
+  <div id='login' class='modal'>
+    <div class='modal-content'>
+      <span class='close'>&times;</span>
+      <h2>Login!</h2>
+      <form id='loginForm'>
+        <label for='username'>Username</label><br>
+        <input type='text' name='username' id='loginUsername'><br>
+        <label for='password'>Password</label><br>
+        <input type='password' name='password' id='loginPassword'><br>
+        <input type='submit' id='loginSubmit' value='Login'>
+      </form>
+      <h2>Signup!</h2>
+      <form method='POST' id='signupForm'>
+        <label for='username'>Username</label><br>
+        <input type='text' name='username' id='signupUsername'><br>
+        <label for='password'>Password</label><br>
+        <input type='password' name='password' id='signupPassword'><br>
+        <label for='passwordConfirmation'>Password Confirmation</label><br>
+        <input type='password' name='passwordConfirmation' id='passwordConfirmation'><br>
+        <input type='submit' id='signupSubmit' value='Signup'>
+      </form>
+    </div>
+  </div>
+  <div id='addEModal' class='modal'>
+    <div class='modal-content'>
+      <span class='close' id='aEC'>&times;</span>
+      <form>
+        <label for='title'>Event Title</label><br>
+        <input type='text' name='title' id='event[title]'><br>
+        <label for='notes'>Event Notes</label><br>
+        <input type='text' name='notes' id='event[notes]'><br>
+        <label for='datetime_of'>Date and time of</label><br>
+        <input type='datetime-local' name='datetime_of' id='event[datetime_of]'><br>
+        <input type='submit' id='addEventSub' value='Add Event'>
+      </form>
+    </div>
+  </div>
+  <div id='logout' class='modal'>
+    <div class='modal-content'>
+      <span class='close' onclick='closer'>&times;</span>
+      <h3>Do you want to logout?</h3>
+      <form action='http://localhost:3000/sessions/delete' method='post'>
+        <input type='submit' id='logoutYes' value='Yes'>
+        <input type='submit' id='logoutNo' value='No'>
+      </form>
     </div>
   </div>
     <script type='text/javascript' src='js/index.js'></script>

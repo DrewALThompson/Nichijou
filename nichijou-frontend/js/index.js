@@ -119,6 +119,7 @@ function calendar(yr, mth){
     fetch('http://localhost:3000/events')
     .then(res => res.json())
     .then(json => {
+      eraser();
       json.forEach((jsonE) =>{
           buildEvent(jsonE);
       })
@@ -134,8 +135,8 @@ let userButton = document.getElementsByClassName('userbtn')[0],
     logoutModal = document.getElementById('logout'),
     x1 = document.getElementsByClassName("close")[0],
     x2 = document.getElementsByClassName("close")[1],
-    loginSub = document.getElementById('loginSubmit'),
-    signupSub = document.getElementById('signupSubmit'),
+    loginSub = document.getElementById('loginForm'),
+    signupSub = document.getElementById('signupForm'),
     logoutSubY = document.getElementById('logoutYes'),
     logoutSubN = document.getElementById('logoutNo'),
     eButton = document.getElementById('ebtn'),
@@ -173,17 +174,16 @@ window.onclick = function(e) {
 
 function loginForm(){
     loginModal.style.display = 'block';
-    userButton.setAttribute('id', 'logoutbtn');
 }
 
 function logoutForm(){
     logoutModal.style.display = 'block';
-    userButton.setAttribute('id', 'loginbtn')
 }
 
 
 userButton.onclick = (e) => {
     e.preventDefault();
+    e.stopPropagation();
     if (userButton.id === 'loginbtn'){
         loginForm();
     } else if (userButton.id === 'logoutbtn'){
@@ -191,18 +191,12 @@ userButton.onclick = (e) => {
     }
 }
 
-loginSub.onclick = (e) => {
+loginSub.addEventListener('submit', (e) => {
     e.preventDefault();
-}
-
-signupSub.onclick = (e) => {
-    e.preventDefault();
-    let signupForm = {},
-        sUsername = document.getElementById('signupUsername').value,
-        sPassword = document.getElementById('signupPassword').value,
-        sPasswordConfirmation = document.getElementById('passwordConfirmation').value;
-    let user = new UserSignupData(sUsername, sPassword, sPasswordConfirmation);
-    fetch('http://localhost:3000/users', {
+    let lUsername = document.getElementById('loginUsername').value,
+        lPassword = document.getElementById('loginPassword').value;
+    let user = new UserLoginData(lUsername, lPassword);
+    fetch('http://localhost:3000/users/:id', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -210,11 +204,40 @@ signupSub.onclick = (e) => {
         body: JSON.stringify(user)
     })
     .then(res => res.json())
-    .then(data => console.log('Cool Beans fam', data))
+    .then(data => {
+        console.log(data);
+        window.localStorage.setItem('id', data.id)
+    })
     .catch((error) => {
         console.error(error);
     })
-}
+})
+    
+
+signupSub.addEventListener('submit', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    let sUsername = document.getElementById('signupUsername').value,
+        sPassword = document.getElementById('signupPassword').value,
+        sPasswordConfirmation = document.getElementById('passwordConfirmation').value;
+    let user = new UserSignupData(sUsername, sPassword, sPasswordConfirmation);
+    fetch('http://localhost:3000/users/create', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(user)
+    })
+    .then(res => res.json())
+    .then(data => {
+        console.log(data);
+        window.localStorage.setItem('id', data.id)
+    })
+    .catch((error) => {
+        console.error(error);
+    })
+})
+
 
 class UserSignupData {
     constructor(username, password, password_confirmation){
@@ -242,47 +265,49 @@ class UserLoginData {
 let notesbtn = document.getElementById('notesbtn');
 let homebtn = document.getElementById('homebtn');
 let drawbtn = document.getElementById('drawbtn');
-let eventHolder = document.getElementById('eventsholder');
+let eventHolder = document.getElementById('wipe');
 let tmpr;
 
-function buildEvent(jsonE){
-    let timeSpread = datetimeSpreader(jsonE),
-    dTM = timeSpread[1],
-    eventCont = document.createElement('div'),
-    eventEventCont = document.createElement('div'),
-    eventHeader = document.createElement('div'),
-    timeCreated = document.createElement('div'),
-    eventNotes = document.createElement('div'),
-    eWipe = document.getElementById('eventsholder'),
-    eWipee = document.getElementById('wipe'),
-    deleteBtn = document.createElement('div');
-    eventEventCont.setAttribute('id', 'wipe');
-    if (eWipe.contains(eWipee)){
-        while (eWipee.hasChildNodes()) {
-            eWipee.removeChild(eWipee.firstChild);
+function eraser(){
+    if (eventHolder.hasChildNodes){
+        while (eventHolder.hasChildNodes()) {
+            eventHolder.removeChild(eventHolder.firstChild);
           }
     }
-    deleteBtn.classList.add('deleteBtn');
-    eventHeader.classList.add('eHead');
-    timeCreated.classList.add('timeC');
-    eventNotes.classList.add('eNotes');
-    deleteBtn.innerHTML = '&times;';
-    deleteBtn.onclick = (e) => {
-        console.log('deletebtn click works')
+}
+
+let storage = window.localStorage.getItem('id')
+
+function buildEvent(jsonE){
+    if (jsonE.user_id === parseInt(storage)){
+        let timeSpread = datetimeSpreader(jsonE),
+        dTM = timeSpread[1],
+        eventCont = document.createElement('div'),
+        eventHeader = document.createElement('div'),
+        timeCreated = document.createElement('div'),
+        eventNotes = document.createElement('div'),
+        deleteBtn = document.createElement('div');
+        deleteBtn.classList.add('deleteBtn');
+        eventHeader.classList.add('eHead');
+        timeCreated.classList.add('timeC');
+        eventNotes.classList.add('eNotes');
+        deleteBtn.innerHTML = '&times;';
+        deleteBtn.onclick = (e) => {
+            console.log('deletebtn click works')
+        }
+        eventHeader.innerHTML = `-${jsonE.title}-`;
+        timeCreated.innerHTML = timeSpread[0];
+        eventNotes.innerHTML = `${jsonE.notes}`;
+        if (parseInt(dTM[0]) === parseInt(sltYr.value) && parseInt(dTM[1]) === parseInt(sltMnth.value) + 1){
+            insertEvent(dTM, jsonE);  
+        }
+        eventCont.appendChild(eventHeader);
+        eventCont.appendChild(eventNotes);
+        eventCont.appendChild(timeCreated);
+        eventCont.appendChild(deleteBtn);
+        eventCont.classList.add('event');
+        eventHolder.appendChild(eventCont);
     }
-    eventHeader.innerHTML = `-${jsonE.title}-`;
-    timeCreated.innerHTML = timeSpread[0];
-    eventNotes.innerHTML = `${jsonE.notes}`;
-    if (parseInt(dTM[0]) === parseInt(sltYr.value) && parseInt(dTM[1]) === parseInt(sltMnth.value) + 1){
-        insertEvent(dTM, jsonE);  
-    }
-    eventCont.appendChild(eventHeader);
-    eventCont.appendChild(eventNotes);
-    eventCont.appendChild(timeCreated);
-    eventCont.appendChild(deleteBtn);
-    eventCont.classList.add('event');
-    eventEventCont.appendChild(eventCont);
-    eventHolder.appendChild(eventEventCont);
 }
 
 function insertEvent(dTM, jsonE){
@@ -350,7 +375,7 @@ function datetimeSpreader(jsonE){
 
 document.addEventListener('DOMContentLoaded', () =>{
   calendar(crntYear, crntMonth);
-  
+  console.log(window.localStorage)
 })
 
 // DOMLOAD FUNCTION

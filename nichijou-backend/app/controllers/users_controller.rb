@@ -10,8 +10,7 @@ class UsersController < ApplicationController
     end
 
     def create
-        user = User.new(username: params[:username], password: params[:password], password_confirmation: params[:password_confirmation])
-        user.save
+        user = User.find_or_create_by(username: params[:username], password: params[:password], password_confirmation: params[:password_confirmation])
         render json: user
     end
 
