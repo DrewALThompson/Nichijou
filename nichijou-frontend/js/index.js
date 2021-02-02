@@ -66,6 +66,7 @@ function monthAndDay(yr, mth){
 }
 
 function calendar(yr, mth){
+    console.log('this is working')
     monthAndDay(yr, mth);
     calVal(yr, mth);
     let calDate = new Date(yr, mth);
@@ -147,10 +148,11 @@ eButton.onclick = () => {
     addEModal.style.display = 'block';
 }
 
-
-x1.onclick = function(){
+function loginCloser(){
     loginModal.style.display = 'none';
 }
+
+x1.onclick = loginCloser;
 
 x2.onclick = function(){
     logoutModal.style.display = 'none';
@@ -196,7 +198,7 @@ loginSub.addEventListener('submit', (e) => {
     let lUsername = document.getElementById('loginUsername').value,
         lPassword = document.getElementById('loginPassword').value;
     let user = new UserLoginData(lUsername, lPassword);
-    fetch('http://localhost:3000/users/:id', {
+    fetch('http://localhost:3000/sessions', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -206,11 +208,15 @@ loginSub.addEventListener('submit', (e) => {
     .then(res => res.json())
     .then(data => {
         console.log(data);
-        window.localStorage.setItem('id', data.id)
+        window.localStorage.setItem('id', data.id);
+        console.log(window.localStorage.getItem('id'));
+        loginCloser();
+        calendar(parseInt(crntYear), parseInt(crntDate.getMonth()));
     })
     .catch((error) => {
         console.error(error);
     })
+
 })
     
 
@@ -221,7 +227,8 @@ signupSub.addEventListener('submit', (e) => {
         sPassword = document.getElementById('signupPassword').value,
         sPasswordConfirmation = document.getElementById('passwordConfirmation').value;
     let user = new UserSignupData(sUsername, sPassword, sPasswordConfirmation);
-    fetch('http://localhost:3000/users/create', {
+    console.log(user)
+    fetch('http://localhost:3000/users', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -276,10 +283,9 @@ function eraser(){
     }
 }
 
-let storage = window.localStorage.getItem('id')
 
 function buildEvent(jsonE){
-    if (jsonE.user_id === parseInt(storage)){
+    if (jsonE.user_id === parseInt(window.localStorage.getItem('id'))){
         let timeSpread = datetimeSpreader(jsonE),
         dTM = timeSpread[1],
         eventCont = document.createElement('div'),
@@ -374,7 +380,11 @@ function datetimeSpreader(jsonE){
 
 
 document.addEventListener('DOMContentLoaded', () =>{
-  calendar(crntYear, crntMonth);
+  if (window.localStorage.getItem('id') !== null){
+      calendar(crntYear, crntDate.getMonth());
+  } else {
+      loginForm();
+  }
   console.log(window.localStorage)
 })
 
