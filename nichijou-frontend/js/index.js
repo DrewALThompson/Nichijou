@@ -372,12 +372,6 @@ function datetimeSpreader(jsonE){
     }
 }
 
-// class EventData{
-//     constructor(){
-        
-//     }
-// }
-
 
 document.addEventListener('DOMContentLoaded', () =>{
   if (window.localStorage.getItem('id') !== null){
