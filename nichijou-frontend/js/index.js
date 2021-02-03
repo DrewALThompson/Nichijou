@@ -136,6 +136,7 @@ let userButton = document.getElementsByClassName('userbtn')[0],
     logoutModal = document.getElementById('logout'),
     x1 = document.getElementsByClassName("close")[0],
     x2 = document.getElementsByClassName("close")[1],
+    x3 = document.getElementsByClassName('close')[2],
     loginSub = document.getElementById('loginForm'),
     signupSub = document.getElementById('signupForm'),
     logoutSubY = document.getElementById('logoutYes'),
@@ -152,21 +153,32 @@ function loginCloser(){
     loginModal.style.display = 'none';
 }
 
-x1.onclick = loginCloser;
-
-x2.onclick = function(){
+function logoutCloser(){
     logoutModal.style.display = 'none';
 }
+
+// x1.onclick = loginCloser;
+
+x2.onclick = logoutCloser;
 
 addEClose.onclick = function(){
     addEModal.style.display = 'none';
 }
 
+logoutSubY.onclick = function(){
+    window.localStorage.clear();
+    userButton.setAttribute('id','loginbtn');
+    logoutCloser();
+    calendar(parseInt(crntYear), parseInt(crntDate.getMonth()))
+    loginForm();
+}
+
+logoutSubN.onclick = function(){
+    logoutCloser();
+}
+
 window.onclick = function(e) {
-    if (e.target == loginModal) {
-      loginModal.style.display = "none";
-      userButton.setAttribute('id', 'loginbtn');
-    } else if (e.target == logoutModal){
+    if (e.target == logoutModal){
       logoutModal.style.display = 'none';
       userButton.setAttribute('id', 'logoutbtn');
     } else if (e.target == addEModal){
@@ -181,6 +193,7 @@ function loginForm(){
 function logoutForm(){
     logoutModal.style.display = 'block';
 }
+
 
 
 userButton.onclick = (e) => {
@@ -207,10 +220,10 @@ loginSub.addEventListener('submit', (e) => {
     })
     .then(res => res.json())
     .then(data => {
-        console.log(data);
         window.localStorage.setItem('id', data.id);
-        console.log(window.localStorage.getItem('id'));
+        window.localStorage.setItem('name', data.username)
         loginCloser();
+        userButton.setAttribute('id', 'logoutbtn');
         calendar(parseInt(crntYear), parseInt(crntDate.getMonth()));
     })
     .catch((error) => {
@@ -237,8 +250,11 @@ signupSub.addEventListener('submit', (e) => {
     })
     .then(res => res.json())
     .then(data => {
-        console.log(data);
-        window.localStorage.setItem('id', data.id)
+        window.localStorage.setItem('id', data.id);
+        window.localStorage.setItem('name', data.username)
+        loginCloser();
+        userButton.setAttribute('id', 'logoutbtn');
+        calendar(parseInt(crntYear), parseInt(crntDate.getMonth()));
     })
     .catch((error) => {
         console.error(error);
@@ -376,6 +392,7 @@ function datetimeSpreader(jsonE){
 document.addEventListener('DOMContentLoaded', () =>{
   if (window.localStorage.getItem('id') !== null){
       calendar(crntYear, crntDate.getMonth());
+      userButton.setAttribute('id', 'logoutbtn');
   } else {
       loginForm();
   }

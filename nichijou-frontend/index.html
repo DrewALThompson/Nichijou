@@ -115,7 +115,7 @@
   </div>
   <div id='login' class='modal'>
     <div class='modal-content'>
-      <span class='close'>&times;</span>
+      <!-- <span class='close'>&times;</span> -->
       <h2>Login!</h2>
       <form id='loginForm'>
         <label for='username'>Username</label><br>
@@ -152,12 +152,10 @@
   </div>
   <div id='logout' class='modal'>
     <div class='modal-content'>
-      <span class='close' onclick='closer'>&times;</span>
+      <span class='close' id='logoutclose'>&times;</span>
       <h3>Do you want to logout?</h3>
-      <form action='http://localhost:3000/sessions/delete' method='post'>
-        <input type='submit' id='logoutYes' value='Yes'>
-        <input type='submit' id='logoutNo' value='No'>
-      </form>
+      <button id='logoutYes'>Yes</button>
+      <button id='logoutNo'>No</button>
     </div>
   </div>
     <script type='text/javascript' src='js/index.js'></script>
