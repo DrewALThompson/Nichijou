@@ -143,7 +143,8 @@ let userButton = document.getElementsByClassName('userbtn')[0],
     logoutSubN = document.getElementById('logoutNo'),
     eButton = document.getElementById('ebtn'),
     addEModal = document.getElementById('addEModal'),
-    addEClose = document.getElementById('aEC')
+    addEForm = document.getElementById('addEForm'),
+    addEClose = document.getElementById('aEC');
 
 eButton.onclick = () => {
     addEModal.style.display = 'block';
@@ -261,6 +262,31 @@ signupSub.addEventListener('submit', (e) => {
     })
 })
 
+addEForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    let eTitle = document.getElementById('eventTitle').value,
+        eNotes = document.getElementById('eventNotes').value,
+        eDTO = document.getElementById('eventDTO').value;
+    let event = new EventFormData(eTitle, eNotes, eDTO, window.localStorage.getItem('id'));
+    console.log(event)
+    fetch('http://localhost:3000/events', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(event)
+    })
+    .then(res => res.json())
+    .then(data => {
+        console.log(data);
+        calendar(parseInt(crntYear), parseInt(crntDate.getMonth()));
+    })
+    .catch((error) => {
+        console.error(error);
+    })
+})
+
 
 class UserSignupData {
     constructor(username, password, password_confirmation){
@@ -274,6 +300,15 @@ class UserLoginData {
     constructor(username, password){
         this.username = username;
         this.password = password;
+    }
+}
+
+class EventFormData {
+    constructor(title, notes, dto, user_id){
+        this.title = title;
+        this.notes = notes;
+        this.datetime_of = dto;
+        this.user_id = user_id
     }
 }
 
@@ -315,7 +350,7 @@ function buildEvent(jsonE){
         eventNotes.classList.add('eNotes');
         deleteBtn.innerHTML = '&times;';
         deleteBtn.onclick = (e) => {
-            console.log('deletebtn click works')
+            fetch('http://localhost:3000/events/:id/delete', )
         }
         eventHeader.innerHTML = `-${jsonE.title}-`;
         timeCreated.innerHTML = timeSpread[0];
