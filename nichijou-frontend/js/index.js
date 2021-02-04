@@ -269,7 +269,6 @@ addEForm.addEventListener('submit', (e) => {
         eNotes = document.getElementById('eventNotes').value,
         eDTO = document.getElementById('eventDTO').value;
     let event = new EventFormData(eTitle, eNotes, eDTO, window.localStorage.getItem('id'));
-    console.log(event)
     fetch('http://localhost:3000/events', {
         method: 'POST',
         headers: {
@@ -348,9 +347,27 @@ function buildEvent(jsonE){
         eventHeader.classList.add('eHead');
         timeCreated.classList.add('timeC');
         eventNotes.classList.add('eNotes');
+        eventCont.classList.add('event');
+        eventCont.setAttribute('id', `event-${jsonE.id}`)
         deleteBtn.innerHTML = '&times;';
         deleteBtn.onclick = (e) => {
-            fetch('http://localhost:3000/events/:id/delete', )
+            let eId = e.target.parentElement.id.split('-')[1];
+            fetch(`http://localhost:3000/events/${eId}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Accept: "application/json"
+                },
+                body: JSON.stringify({id: eId})
+                })
+                .then(res => res.json())
+                .then(data => {
+                console.log(data);
+                calendar(parseInt(crntYear), parseInt(crntDate.getMonth()));
+                })
+                .catch((error) => {
+                console.error(error);
+                })
         }
         eventHeader.innerHTML = `-${jsonE.title}-`;
         timeCreated.innerHTML = timeSpread[0];
@@ -362,7 +379,6 @@ function buildEvent(jsonE){
         eventCont.appendChild(eventNotes);
         eventCont.appendChild(timeCreated);
         eventCont.appendChild(deleteBtn);
-        eventCont.classList.add('event');
         eventHolder.appendChild(eventCont);
     }
 }
