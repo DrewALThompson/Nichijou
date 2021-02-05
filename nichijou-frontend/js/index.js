@@ -352,11 +352,11 @@ function buildEvent(jsonE){
         deleteBtn.innerHTML = '&times;';
         deleteBtn.onclick = (e) => {
             let eId = e.target.parentElement.id.split('-')[1];
+            console.log(eId)
             fetch(`http://localhost:3000/events/${eId}`, {
                 method: 'DELETE',
                 headers: {
-                    'Content-Type': 'application/json',
-                    Accept: "application/json"
+                    'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({id: eId})
                 })
