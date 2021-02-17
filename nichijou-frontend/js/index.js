@@ -121,8 +121,22 @@ function calendar(yr, mth){
     .then(res => res.json())
     .then(json => {
       eraser();
+      let sorter = []
+      let i = 0;
       json.forEach((jsonE) =>{
-          buildEvent(jsonE);
+          sorter.push(jsonE);
+      })
+      sorter.sort((a, b) => {
+          if (a.notes > b.notes){
+              return 1
+          } else if (a.notes < b.notes){
+              return -1
+          } else {
+              return 0
+          }
+      })
+      sorter.forEach((index) => {
+          buildEvent(index);
       })
     })
 }
@@ -157,8 +171,6 @@ function loginCloser(){
 function logoutCloser(){
     logoutModal.style.display = 'none';
 }
-
-// x1.onclick = loginCloser;
 
 x2.onclick = logoutCloser;
 
@@ -464,4 +476,5 @@ document.addEventListener('DOMContentLoaded', () =>{
 //         return new Date(crntYear, crntMonth, 0).getDate();
 //     }
 // }
-// realized I don't need this keeping in case
+// realized I don't need this keeping in casex
+
